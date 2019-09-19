@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-button (click)="dismiss()">
+      Back
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <form [formGroup]="addTODOForm" (ngSubmit)="addTodo()">
+    <ion-item>
+      <ion-label position="fixed">Title <ion-text color="danger">*</ion-text></ion-label>
+      <ion-input required formControlName="title" type="text"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="fixed">Description <ion-text color="danger">*</ion-text></ion-label>
+      <ion-textarea
+        formControlName="description"
+        placeholder="Enter more information here..."></ion-textarea>
+    </ion-item>
+    <ion-button block color="primary" type="submit"
+      [disabled]="addTODOForm.invalid">
+      Add Task
+    </ion-button>
+  </form>
+</ion-content>

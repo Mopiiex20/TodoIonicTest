@@ -1,0 +1,20 @@
+<ion-header>
+  <ion-toolbar class="todoHeadToolbar">
+    <ion-title>Your TODO's</ion-title>
+    <ion-buttons slot="secondary">
+      <ion-button (click)="addTODO()">
+        <ion-icon slot="icon-only" name="add"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-list *ngFor="let item of todoList">
+    <ion-item href='todolist/{{item.title}}'>
+      <ion-label>
+        <h2>Title : {{item.title}}</h2>
+        <p>{{item.description}}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>
