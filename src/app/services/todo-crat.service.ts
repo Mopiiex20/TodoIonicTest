@@ -12,16 +12,26 @@ export class TodoCRUTService {
 
   constructor(private http: HttpClient) { }
 
-  putTodo(url: string, body: any): Observable<any> {
+  postTodo(url: string, body: any): Observable<any> {
+
     return this.http.post<any>(`${this.envUrl}${url}`, body)
   }
+
+  putTodo(todoId: string, body: any): Observable<any> {
+
+    return this.http.put<any>(`${this.envUrl}content/${todoId}`, body)
+  }
+
   getTodoS(url: string): Observable<any> {
     return this.http.get<any>(`${this.envUrl}${url}`)
   }
 
-  getOne(url:string):Observable<any>{
+  getOne(url: string): Observable<any> {
     return this.http.get<any>(`${this.envUrl}${url}`)
   }
 
+  deleteTODO(id: string) {
+    return this.http.delete(`${this.envUrl}content/${id}`)
+  }
 
 }

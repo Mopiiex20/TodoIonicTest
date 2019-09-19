@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, DoCheck } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Storage } from '@ionic/storage';
 import { AuthService } from 'src/app/services/auth-service';
@@ -10,6 +10,8 @@ import { Router } from '@angular/router';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage implements OnInit {
+
+  isLog: boolean = false;
 
   public loginForm: FormGroup;
   constructor(
@@ -23,25 +25,21 @@ export class HomePage implements OnInit {
       password: new FormControl('', Validators.required),
     });
   }
+
   login() {
     this.authService.auth('login', this.loginForm.value).subscribe((res) => {
-      console.log(res.token);
-      this.storage.set('token', res.token)
+      console.log(res);
+      if (res.status === 200) {
+        this.authService.completeSignIn(res.message)
+      } else return
+
     })
   }
 
   ngOnInit() {
-    let token: string;
-    this.storage.get('token')
-      .then(
-        (data) => {
-          token = data; if (token) {
-            this.router.navigate(['todolist'])
-
-          }
-        }
-      )
-
-
+    console.log(this.authService.authState.value);
+    if (this.isLog) {
+      this.router.navigate(['todolist'])
+    }
   }
 }
