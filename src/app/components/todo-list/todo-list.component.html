@@ -1,6 +1,11 @@
 <ion-nav>
   <ion-header>
     <ion-toolbar class="todoHeadToolbar">
+      <ion-buttons slot="primary">
+        <ion-button (click)="logout()">
+          <ion-icon slot="icon-only" name="exit"></ion-icon>
+        </ion-button>
+      </ion-buttons>
       <ion-title>Your TODO's</ion-title>
       <ion-buttons slot="secondary">
         <ion-button (click)="addTODO()">

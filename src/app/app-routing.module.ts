@@ -16,7 +16,7 @@ const routes: Routes = [
   {
     path: 'todolist',
     loadChildren: () => import('./components/todo-list/todo-list.module').then(m => m.TodoListModule),
-    canActivate: [AuthGuard]
+    // canActivate: [AuthGuard]
   },
 ];
 

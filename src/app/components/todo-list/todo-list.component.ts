@@ -6,6 +6,8 @@ import { NavDetailComponent } from 'src/app/components/nav-detail/nav-detail.com
 import { User } from 'src/app/models/userModels';
 import { Storage } from '@ionic/storage';
 import * as jwt_decode from 'jwt-decode';
+import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth-service';
 
 @Component({
   selector: 'app-todo-list',
@@ -21,8 +23,10 @@ export class TodoListPage implements OnInit {
   constructor(
     public modalController: ModalController,
     public todoService: TodoCRUTService,
+    public authService: AuthService,
     private store: Storage,
-    public loadingController: LoadingController
+    public loadingController: LoadingController,
+    private router: Router
   ) { }
 
   loadData(event) {
@@ -53,6 +57,13 @@ export class TodoListPage implements OnInit {
     nav.push(NavDetailComponent, { todo });
   }
 
+  logout() {
+    console.log('logout');
+    this.authService.logout()
+    this.router.navigate(['home'])
+
+  }
+
   async doRefresh(event) {
     const loading = await this.loadingController.create({
       message: 'Loading'
@@ -71,6 +82,10 @@ export class TodoListPage implements OnInit {
   ngOnInit() {
     this.store.get('token').then(
       async (token: string) => {
+        if (!token) {
+          this.router.navigate(['home'])
+          return
+        }
         const loading = await this.loadingController.create({
           message: 'Loading'
         });

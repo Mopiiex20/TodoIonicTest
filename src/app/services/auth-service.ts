@@ -24,6 +24,11 @@ export class AuthService {
             this.isLoggedIn();
         });
     }
+    public async logout() {
+        await this.storage.clear()
+        this.authState.next(false);
+
+    }
 
     isLoggedIn() {
         this.storage.get('token').then((response) => {
